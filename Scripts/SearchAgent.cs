@@ -119,7 +119,7 @@ public class SearchAgent : Agent
             }
 
         // verplaats de target naar een nieuwe willekeurige locatie 
-        targetPosition.localPosition = new Vector3(Random.value * 8 - 4,0.5f,Random.value * 8 - 4);
+        targetPosition.localPosition = new Vector3(Random.value * 8 - 4,1.5f,Random.value * 8 - 4);
 
         //touched = false;
     }
