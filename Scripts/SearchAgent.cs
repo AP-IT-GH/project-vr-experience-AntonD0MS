@@ -29,9 +29,9 @@ public class SearchAgent : Agent
     // Update is called once per frame
     void Update()
     {
-        if(transform.localPosition.y < -1){
+      /*  if(transform.localPosition.y < -1){
             EndEpisode();
-        }
+        }*/
     }
 
 
@@ -54,7 +54,7 @@ public class SearchAgent : Agent
         // Beloningen
         float distanceToTarget = Vector3.Distance(transform.localPosition, targetPosition.localPosition);
         // target bereikt
-        if (distanceToTarget < 1.42f /*&& !touched*/) {
+        if (distanceToTarget < 0.5f /*&& !touched*/) {
             SetReward(1.0f);
             //touched = true;
             targetPosition.gameObject.SetActive(false);
@@ -70,7 +70,7 @@ public class SearchAgent : Agent
         //     }
         // }
     
-        if (transform.localPosition.y < 0){
+        if (transform.localPosition.y < -1){
             SetReward(-1f);
             EndEpisode();
         }
@@ -81,7 +81,7 @@ public class SearchAgent : Agent
     {
         if (collision.gameObject.CompareTag("Enemy")){
             SetReward(1f);
-            //EndEpisode();            
+            EndEpisode();            
         }
         // if (collision.gameObject.CompareTag("Checkpoint") && touched)
         // {
@@ -110,11 +110,10 @@ public class SearchAgent : Agent
         /*float randomX = Random.Range(-4.5f, 4.5f);
         float randomZ = Random.Range(-4.5f, 4.5f);
         targetPosition.localPosition = new Vector3(randomX, 0.5f, randomZ);*/
-        
         targetPosition.gameObject.SetActive(true);
 
-        if (transform.localPosition.y < 0){
-            transform.localPosition = new Vector3( 0, 0.5f, 0);
+        if (transform.localPosition.y < -1){
+            transform.localPosition = new Vector3(-15,0,10);
             transform.localRotation = Quaternion.identity;
             }
 
