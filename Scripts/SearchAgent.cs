@@ -19,11 +19,12 @@ public class SearchAgent : Agent
     //private GameObject checkPoint;
 
     //private bool touched = false;
+    private Rigidbody rb;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -40,37 +41,29 @@ public class SearchAgent : Agent
         sensor.AddObservation(transform.localPosition);
     }
 
-    public float speedMultiplier = 0.5f; // 0.5f
+    public float speedMultiplier = 5.0f; // 0.5f
     public float rotationMultiplier = 5f;
 
     public override void OnActionReceived(ActionBuffers actionBuffers){
-        // Acties, size = 2
         Debug.Log("Acties ontvangen!");
 
         Vector3 controlSignal = Vector3.zero;
         controlSignal.z = actionBuffers.ContinuousActions[0];
-        transform.Translate(controlSignal * speedMultiplier);
-        transform.Rotate(0.0f, rotationMultiplier* actionBuffers.ContinuousActions[1], 0.0f);
-        // Beloningen
+
+        Vector3 move = transform.forward * controlSignal.z * speedMultiplier;
+        rb.MovePosition(rb.position + move * Time.fixedDeltaTime);
+
+        transform.Rotate(0.0f, rotationMultiplier * actionBuffers.ContinuousActions[1], 0.0f);
+
         float distanceToTarget = Vector3.Distance(transform.localPosition, targetPosition.localPosition);
-        // target bereikt
-        if (distanceToTarget < 0.5f /*&& !touched*/) {
+        if (distanceToTarget < 0.5f)
+        {
             SetReward(1.0f);
-            //touched = true;
             targetPosition.gameObject.SetActive(false);
-            //Destroy(targetPosition.gameObject);
-            //EndEpisode();
         }
-        // if (touched){
-        //     float distanceToCheckPoint = Vector3.Distance(transform.localPosition, checkPoint.transform.localPosition);
-        //     if (distanceToCheckPoint < 1.42f)
-        //     {
-        //         SetReward(1.0f);
-        //         EndEpisode();
-        //     }
-        // }
-    
-        if (transform.localPosition.y < -1){
+
+        if (transform.localPosition.y < -1)
+        {
             SetReward(-1f);
             EndEpisode();
         }
