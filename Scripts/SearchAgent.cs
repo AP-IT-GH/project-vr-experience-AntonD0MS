@@ -19,6 +19,7 @@ public class SearchAgent : Agent
     //private GameObject checkPoint;
 
     //private bool touched = false;
+    private Rigidbody rb;
 
     private Rigidbody rb;
 
@@ -46,11 +47,14 @@ public class SearchAgent : Agent
         sensor.AddObservation(targetPosition.localPosition);
     }
 
+<<<<<<< HEAD
     public float speedMultiplier = 10f; // 0.5f
+=======
+    public float speedMultiplier = 5.0f; // 0.5f
+>>>>>>> 498f4b1b99dd4830e0fde6379dc61f83d84a6a53
     public float rotationMultiplier = 5f;
 
     public override void OnActionReceived(ActionBuffers actionBuffers){
-        // Acties, size = 2
         Debug.Log("Acties ontvangen!");
 
         AddReward(-0.0001f); // Kleine straf per stap, zo blijft de agent niet doelloos rondlopen
@@ -63,6 +67,7 @@ public class SearchAgent : Agent
 
         Vector3 controlSignal = Vector3.zero;
         controlSignal.z = actionBuffers.ContinuousActions[0];
+<<<<<<< HEAD
         // transform.Translate(controlSignal * speedMultiplier);
         // transform.Rotate(0.0f, rotationMultiplier* actionBuffers.ContinuousActions[1], 0.0f);
         Vector3 movement = transform.forward * controlSignal.z * speedMultiplier;
@@ -94,6 +99,24 @@ public class SearchAgent : Agent
     
         if (transform.localPosition.y < -1){
             SetReward(-3f);
+=======
+
+        Vector3 move = transform.forward * controlSignal.z * speedMultiplier;
+        rb.MovePosition(rb.position + move * Time.fixedDeltaTime);
+
+        transform.Rotate(0.0f, rotationMultiplier * actionBuffers.ContinuousActions[1], 0.0f);
+
+        float distanceToTarget = Vector3.Distance(transform.localPosition, targetPosition.localPosition);
+        if (distanceToTarget < 0.5f)
+        {
+            SetReward(1.0f);
+            targetPosition.gameObject.SetActive(false);
+        }
+
+        if (transform.localPosition.y < -1)
+        {
+            SetReward(-1f);
+>>>>>>> 498f4b1b99dd4830e0fde6379dc61f83d84a6a53
             EndEpisode();
         }
 
