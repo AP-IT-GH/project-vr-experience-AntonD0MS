@@ -980,13 +980,8 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   targetPosition: {fileID: 2127917249}
-<<<<<<< HEAD
   rb: {fileID: 1818735579}
   speedMultiplier: 10
-=======
-  rb: {fileID: 0}
-  speedMultiplier: 0.5
->>>>>>> 498f4b1b99dd4830e0fde6379dc61f83d84a6a53
   rotationMultiplier: 5
 --- !u!114 &1818735575
 MonoBehaviour:

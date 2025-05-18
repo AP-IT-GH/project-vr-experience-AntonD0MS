@@ -21,8 +21,6 @@ public class SearchAgent : Agent
     //private bool touched = false;
     private Rigidbody rb;
 
-    private Rigidbody rb;
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
