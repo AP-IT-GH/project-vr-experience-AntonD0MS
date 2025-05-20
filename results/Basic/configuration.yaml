@@ -36,7 +36,7 @@ behaviors:
           deterministic: false
       curiosity:
         gamma: 0.99
-        strength: 0.02
+        strength: 0.05
         network_settings:
           normalize: false
           hidden_units: 128
@@ -79,8 +79,8 @@ checkpoint_settings:
   run_id: Basic
   initialize_from: null
   load_model: false
-  resume: false
-  force: true
+  resume: true
+  force: false
   train_model: false
   inference: false
   results_dir: results

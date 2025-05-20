@@ -40,23 +40,33 @@ public class SearchAgent : Agent
     public override void CollectObservations(VectorSensor sensor){ 
         // Agent positie
         sensor.AddObservation(transform.localPosition);
-        sensor.AddObservation(transform.forward);
+        // sensor.AddObservation(transform.forward);
 
-        sensor.AddObservation(targetPosition.localPosition);
+        // sensor.AddObservation(targetPosition.localPosition);
+        Vector3 toEnemy = (targetPosition.position - transform.position).normalized;
+        sensor.AddObservation(toEnemy);
+
     }
 
     public float speedMultiplier = 10f; // 0.5f
     public float rotationMultiplier = 5f;
 
-    public override void OnActionReceived(ActionBuffers actionBuffers){
-        Debug.Log("Acties ontvangen!");
+    public override void OnActionReceived(ActionBuffers actionBuffers)
+    {
+        //Debug.Log("Acties ontvangen!");
 
-        AddReward(-0.0001f); // Kleine straf per stap, zo blijft de agent niet doelloos rondlopen
+        // AddReward(-0.001f); // Kleine straf per stap, zo blijft de agent niet doelloos rondlopen
 
         float currentDistance = Vector3.Distance(transform.localPosition, targetPosition.position);
-        float distanceDelta = previousDistance - currentDistance;
-        AddReward(distanceDelta * 0.1f); // beloon verbetering
+        float delta = previousDistance - currentDistance;
+        AddReward(delta * 0.2f);
         previousDistance = currentDistance;
+
+
+        // Vector3 toTarget = (targetPosition.position - transform.position).normalized;
+        // float alignment = Vector3.Dot(transform.forward, toTarget);
+        // AddReward(alignment * 0.01f);
+
 
 
         Vector3 controlSignal = Vector3.zero;
@@ -73,28 +83,16 @@ public class SearchAgent : Agent
         float distanceToTarget = Vector3.Distance(transform.localPosition, targetPosition.localPosition);
         // target bereikt
 
-        // if (distanceToTarget < 0.5f /*&& !touched*/) {
-        //     SetReward(1.0f);
-        //     //touched = true;
-        //     targetPosition.gameObject.SetActive(false);
-        //     //Destroy(targetPosition.gameObject);
-        //     //EndEpisode();
-        // }
-
-        // if (touched){
-        //     float distanceToCheckPoint = Vector3.Distance(transform.localPosition, checkPoint.transform.localPosition);
-        //     if (distanceToCheckPoint < 1.42f)
-        //     {
-        //         SetReward(1.0f);
-        //         EndEpisode();
-        //     }
-        // }
-    
-        if (transform.localPosition.y < -1){
-            SetReward(-3f);
+        if (transform.localPosition.y < -1)
+        {
+            SetReward(-1f);
             EndEpisode();
         }
-
+        // if (StepCount >= MaxStep && MaxStep > 0)
+        // {
+        //     SetReward(-2f);
+        //     EndEpisode();
+        // }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -103,20 +101,15 @@ public class SearchAgent : Agent
             SetReward(3f);
             EndEpisode();            
         }
-        // if (collision.gameObject.CompareTag("Wall")) {
-        //     AddReward(-0.5f); // of meer als dat nodig is
-        // }
-        // if (collision.gameObject.CompareTag("Checkpoint") && touched)
-        // {
-        //     SetReward(1f);
-        //     EndEpisode();
-        // }
+        if (collision.gameObject.CompareTag("Wall")) {
+            AddReward(-0.05f);
+        }
     }
 
     private float previousDistance;
     public override void OnEpisodeBegin()
     {
-        Debug.Log("Episode gestart!");
+        //Debug.Log("Episode gestart!");
 
         InitializeEnvironment();
         previousDistance = Vector3.Distance(transform.localPosition, targetPosition.position);
@@ -141,12 +134,13 @@ public class SearchAgent : Agent
         targetPosition.gameObject.SetActive(true);
 
         if (transform.localPosition.y < -1){
-            transform.localPosition = new Vector3(-15,0,10);
+            transform.localPosition = new Vector3(0,0,3);
             transform.localRotation = Quaternion.identity;
             }
 
         // verplaats de target naar een nieuwe willekeurige locatie 
-        //targetPosition.localPosition = new Vector3(Random.value * 8 - 4,1.5f,Random.value * 8 - 4);
+        // targetPosition.localPosition = new Vector3(Random.value * 8 - 4,1.5f,Random.value * 8 - 4);
+        // targetPosition.position = new Vector3(Random.Range(-12f, 12f), 1.5f, Random.Range(-12f, 12f));
         targetPosition.position = new Vector3(Random.Range(-24f, 24f), 1.5f, Random.Range(-24f, 24f));
 
         //touched = false;
