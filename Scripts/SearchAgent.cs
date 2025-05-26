@@ -57,12 +57,12 @@ public class SearchAgent : Agent
     {
         //Debug.Log("Acties ontvangen!");
 
-        AddReward(-0.0005f); // Kleine straf per stap, zo blijft de agent niet doelloos rondlopen
+        AddReward(-0.0001f); // Kleine straf per stap, zo blijft de agent niet doelloos rondlopen
 
         float currentDistance = Vector3.Distance(transform.localPosition, targetPosition.position);
         float delta = previousDistance - currentDistance;
         Debug.Log(delta);
-        AddReward(delta * 0.5f);
+        //AddReward(delta * 0.5f);
         previousDistance = currentDistance;
 
 
@@ -95,7 +95,7 @@ public class SearchAgent : Agent
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy")){
-            SetReward(3f);
+            SetReward(1f);
             EndEpisode();            
         }
         if (collision.gameObject.CompareTag("Wall")) {
