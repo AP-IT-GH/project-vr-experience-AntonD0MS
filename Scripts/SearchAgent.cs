@@ -5,6 +5,8 @@ using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 using System.IO.Abstractions;
+using UnityEngine.AI;
+
 
 public class SearchAgent : Agent
 {
@@ -55,18 +57,13 @@ public class SearchAgent : Agent
     {
         //Debug.Log("Acties ontvangen!");
 
-        // AddReward(-0.001f); // Kleine straf per stap, zo blijft de agent niet doelloos rondlopen
+        AddReward(-0.0005f); // Kleine straf per stap, zo blijft de agent niet doelloos rondlopen
 
         float currentDistance = Vector3.Distance(transform.localPosition, targetPosition.position);
         float delta = previousDistance - currentDistance;
-        AddReward(delta * 0.2f);
+        Debug.Log(delta);
+        AddReward(delta * 0.5f);
         previousDistance = currentDistance;
-
-
-        // Vector3 toTarget = (targetPosition.position - transform.position).normalized;
-        // float alignment = Vector3.Dot(transform.forward, toTarget);
-        // AddReward(alignment * 0.01f);
-
 
 
         Vector3 controlSignal = Vector3.zero;
@@ -127,21 +124,52 @@ public class SearchAgent : Agent
 
 
 
-    private void InitializeEnvironment(){
+    private void InitializeEnvironment()
+    {
         /*float randomX = Random.Range(-4.5f, 4.5f);
         float randomZ = Random.Range(-4.5f, 4.5f);
         targetPosition.localPosition = new Vector3(randomX, 0.5f, randomZ);*/
         targetPosition.gameObject.SetActive(true);
 
-        if (transform.localPosition.y < -1){
-            transform.localPosition = new Vector3(0,0,3);
+        if (transform.localPosition.y < -1)
+        {
+            transform.localPosition = new Vector3(0, 0, 3);
             transform.localRotation = Quaternion.identity;
-            }
+        }
 
-        // verplaats de target naar een nieuwe willekeurige locatie 
+        // verplaats de target naar een nieuwe willekeurige locatie 
         // targetPosition.localPosition = new Vector3(Random.value * 8 - 4,1.5f,Random.value * 8 - 4);
         // targetPosition.position = new Vector3(Random.Range(-12f, 12f), 1.5f, Random.Range(-12f, 12f));
-        targetPosition.position = new Vector3(Random.Range(-24f, 24f), 1.5f, Random.Range(-24f, 24f));
+        // targetPosition.position = new Vector3(Random.Range(-24f, 24f), 1.5f, Random.Range(-24f, 24f));
+
+
+        Vector3 randomNavMeshPos;
+        bool validPositionFound = false;
+
+        for (int i = 0; i < 10; i++) // probeer max 10 keer een geldige plek te vinden
+        {
+            Vector3 randomPoint = new Vector3(
+                Random.Range(-48f, 48f),
+                0f,
+                Random.Range(-48f, 48f)
+            );
+
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(randomPoint, out hit, 1.5f, NavMesh.AllAreas))
+            {
+                randomNavMeshPos = hit.position;
+                targetPosition.position = randomNavMeshPos + Vector3.up * 1.5f; // optillen zodat hij niet in de grond zit
+                validPositionFound = true;
+                break;
+            }
+        }
+
+        if (!validPositionFound)
+        {
+            Debug.LogWarning("Kon geen geldige spawnpositie vinden voor het target op de NavMesh.");
+            targetPosition.position = new Vector3(0f, 1.5f, 0f); // fallback
+        }
+
 
         //touched = false;
     }
