@@ -1,0 +1,65 @@
+{
+    "Player": {
+        "checkpoints": [
+            {
+                "steps": 499994,
+                "file_path": "results\\SearchAgent3_Marnix\\Player\\Player-499994.onnx",
+                "reward": -4.376727435737848,
+                "creation_time": 1748244281.5141196,
+                "auxillary_file_paths": [
+                    "results\\SearchAgent3_Marnix\\Player\\Player-499994.pt"
+                ]
+            },
+            {
+                "steps": 528877,
+                "file_path": "results\\SearchAgent3_Marnix\\Player\\Player-528877.onnx",
+                "reward": null,
+                "creation_time": 1748244897.085146,
+                "auxillary_file_paths": [
+                    "results\\SearchAgent3_Marnix\\Player\\Player-528877.pt"
+                ]
+            },
+            {
+                "steps": 554016,
+                "file_path": "results\\SearchAgent3_Marnix\\Player\\Player-554016.onnx",
+                "reward": null,
+                "creation_time": 1748245311.3561473,
+                "auxillary_file_paths": [
+                    "results\\SearchAgent3_Marnix\\Player\\Player-554016.pt"
+                ]
+            },
+            {
+                "steps": 570439,
+                "file_path": "results\\SearchAgent3_Jitse\\Player\\Player-570439.onnx",
+                "reward": 2.9008478964197226,
+                "creation_time": 1748246193.7429833,
+                "auxillary_file_paths": [
+                    "results\\SearchAgent3_Jitse\\Player\\Player-570439.pt"
+                ]
+            },
+            {
+                "steps": 571529,
+                "file_path": "results\\SearchAgent3_Jitse\\Player\\Player-571529.onnx",
+                "reward": 2.8763709971981664,
+                "creation_time": 1748247576.249978,
+                "auxillary_file_paths": [
+                    "results\\SearchAgent3_Jitse\\Player\\Player-571529.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 571529,
+            "file_path": "results\\SearchAgent3_Jitse\\Player.onnx",
+            "reward": 2.8763709971981664,
+            "creation_time": 1748247576.249978,
+            "auxillary_file_paths": [
+                "results\\SearchAgent3_Jitse\\Player\\Player-571529.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}
