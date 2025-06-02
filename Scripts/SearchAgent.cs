@@ -28,6 +28,10 @@ public class SearchAgent : Agent
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        rb.interpolation = RigidbodyInterpolation.Interpolate; // Voorkomt tunneling
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic; // Betere collision detection
+
     }
 
     // Update is called once per frame
@@ -50,7 +54,7 @@ public class SearchAgent : Agent
 
     }
 
-    public float speedMultiplier = 10f; // 0.5f
+    public float speedMultiplier = 0.5f; // 0.5f
     public float rotationMultiplier = 5f;
 
     public override void OnActionReceived(ActionBuffers actionBuffers)
@@ -61,8 +65,7 @@ public class SearchAgent : Agent
 
         float currentDistance = Vector3.Distance(transform.localPosition, targetPosition.position);
         float delta = previousDistance - currentDistance;
-        Debug.Log(delta);
-        
+        //Debug.Log(delta);
         //AddReward(delta * 0.5f);
         previousDistance = currentDistance;
 
@@ -157,7 +160,9 @@ public class SearchAgent : Agent
             );
 
             NavMeshHit hit;
-            if (NavMesh.SamplePosition(randomPoint, out hit, 1.5f, NavMesh.AllAreas))
+            int walkableMask = NavMesh.GetAreaFromName("Walkable");
+            if (NavMesh.SamplePosition(randomPoint, out hit, 1.5f, 1 << walkableMask))
+            //if (NavMesh.SamplePosition(randomPoint, out hit, 1.5f, NavMesh.AllAreas))
             {
                 randomNavMeshPos = hit.position;
                 targetPosition.position = randomNavMeshPos + Vector3.up * 1.5f; // optillen zodat hij niet in de grond zit
