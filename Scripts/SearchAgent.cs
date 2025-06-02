@@ -61,7 +61,7 @@ public class SearchAgent : Agent
 
         float currentDistance = Vector3.Distance(transform.localPosition, targetPosition.position);
         float delta = previousDistance - currentDistance;
-        Debug.Log(delta);
+        //Debug.Log(delta);
         AddReward(delta * 0.5f);
         previousDistance = currentDistance;
 
@@ -79,8 +79,9 @@ public class SearchAgent : Agent
         // Beloningen
         float distanceToTarget = Vector3.Distance(transform.localPosition, targetPosition.localPosition);
         // target bereikt
-
-        if (transform.localPosition.y < -1)
+        //Debug.Log(transform.localPosition.y);
+        //Debug.Log("Plane y-pos: " + GameObject.Find("PlaneNaam").transform.position.y);
+        if (transform.localPosition.y < -2)
         {
             SetReward(-1f);
             EndEpisode();
@@ -133,7 +134,7 @@ public class SearchAgent : Agent
 
         if (transform.localPosition.y < -1)
         {
-            transform.localPosition = new Vector3(0, 0, 3);
+            transform.localPosition = new Vector3(0, 1, 3);
             transform.localRotation = Quaternion.identity;
         }
 
