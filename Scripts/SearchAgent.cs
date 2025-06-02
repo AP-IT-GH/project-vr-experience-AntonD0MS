@@ -61,13 +61,9 @@ public class SearchAgent : Agent
 
         float currentDistance = Vector3.Distance(transform.localPosition, targetPosition.position);
         float delta = previousDistance - currentDistance;
-<<<<<<< HEAD
-        //Debug.Log(delta);
-        AddReward(delta * 0.5f);
-=======
         Debug.Log(delta);
+        
         //AddReward(delta * 0.5f);
->>>>>>> cf2512241a9d7333bbf343753d5436e7ac066327
         previousDistance = currentDistance;
 
 
