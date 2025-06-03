@@ -76,6 +76,7 @@ public class SearchAgent : Agent
         // transform.Rotate(0.0f, rotationMultiplier* actionBuffers.ContinuousActions[1], 0.0f);
         Vector3 movement = transform.forward * controlSignal.z * speedMultiplier;
         rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
+        //rb.AddForce(movement, ForceMode.VelocityChange);
 
         float rotation = rotationMultiplier * actionBuffers.ContinuousActions[1];
         Quaternion turn = Quaternion.Euler(0.0f, rotation, 0.0f);
