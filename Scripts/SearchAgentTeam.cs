@@ -8,7 +8,7 @@ using System.IO.Abstractions;
 using UnityEngine.AI;
 
 
-public class SearchAgent : Agent
+public class SearchAgentTeam : Agent
 {
 
     /*[SerializeField]
@@ -88,8 +88,8 @@ public class SearchAgent : Agent
         //Debug.Log("Plane y-pos: " + GameObject.Find("PlaneNaam").transform.position.y);
         if (transform.localPosition.y < -2)
         {
-            SetReward(-1f);
-            EndEpisode();
+            TeamManager.Instance.GiveTeamReward(-1f);
+            TeamManager.Instance.EndTeamEpisode();
         }
         // if (StepCount >= MaxStep && MaxStep > 0)
         // {
@@ -100,9 +100,10 @@ public class SearchAgent : Agent
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy")){
-            SetReward(1f);
-            EndEpisode();            
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            TeamManager.Instance.GiveTeamReward(1f);
+            TeamManager.Instance.EndTeamEpisode();
         }
         if (collision.gameObject.CompareTag("Wall")) {
             AddReward(-0.05f);
@@ -113,6 +114,8 @@ public class SearchAgent : Agent
     public override void OnEpisodeBegin()
     {
         //Debug.Log("Episode gestart!");
+
+        TeamManager.Instance.RegisterAgent(this);
 
         InitializeEnvironment();
         previousDistance = Vector3.Distance(transform.localPosition, targetPosition.position);
