@@ -2,22 +2,31 @@
     "Player": {
         "checkpoints": [
             {
-                "steps": 225748,
-                "file_path": "results\\SearchAgentTeam1_Marnix\\Player\\Player-225748.onnx",
+                "steps": 499984,
+                "file_path": "results\\SearchAgentTeam1_Marnix\\Player\\Player-499984.onnx",
                 "reward": null,
-                "creation_time": 1749155968.6937554,
+                "creation_time": 1749216264.15213,
                 "auxillary_file_paths": [
-                    "results\\SearchAgentTeam1_Marnix\\Player\\Player-225748.pt"
+                    "results\\SearchAgentTeam1_Marnix\\Player\\Player-499984.pt"
+                ]
+            },
+            {
+                "steps": 750048,
+                "file_path": "results\\SearchAgentTeam1_Marnix\\Player\\Player-750048.onnx",
+                "reward": null,
+                "creation_time": 1749217165.201757,
+                "auxillary_file_paths": [
+                    "results\\SearchAgentTeam1_Marnix\\Player\\Player-750048.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 225748,
+            "steps": 750048,
             "file_path": "results\\SearchAgentTeam1_Marnix\\Player.onnx",
             "reward": null,
-            "creation_time": 1749155968.6937554,
+            "creation_time": 1749217165.201757,
             "auxillary_file_paths": [
-                "results\\SearchAgentTeam1_Marnix\\Player\\Player-225748.pt"
+                "results\\SearchAgentTeam1_Marnix\\Player\\Player-750048.pt"
             ]
         }
     },
