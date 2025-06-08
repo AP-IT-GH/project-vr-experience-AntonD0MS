@@ -5566,12 +5566,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 1018309293}
     m_Modifications:
     - target: {fileID: -1589478476631903248, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
+      propertyPath: agentID
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1589478476631903248, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: targetPosition
       value: 
       objectReference: {fileID: 1697092570}
+    - target: {fileID: -1589478476631903248, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
+      propertyPath: maxTeamDistance
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1930051504070189835, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -22
       objectReference: {fileID: 0}
     - target: {fileID: 1930051504070189835, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5579,7 +5587,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1930051504070189835, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 1930051504070189835, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5612,6 +5620,10 @@ PrefabInstance:
     - target: {fileID: 4814920325528486872, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: m_Name
       value: ZombieRigTeam
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188856834540820647, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 22
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -45878,12 +45890,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 1018309293}
     m_Modifications:
     - target: {fileID: -1589478476631903248, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
+      propertyPath: agentID
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -1589478476631903248, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: targetPosition
       value: 
       objectReference: {fileID: 1697092570}
+    - target: {fileID: -1589478476631903248, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
+      propertyPath: maxTeamDistance
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1930051504070189835, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 1930051504070189835, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -45891,7 +45911,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1930051504070189835, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -22
       objectReference: {fileID: 0}
     - target: {fileID: 1930051504070189835, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -45924,6 +45944,10 @@ PrefabInstance:
     - target: {fileID: 4814920325528486872, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: m_Name
       value: ZombieRigTeam4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188856834540820647, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 22
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -46375,12 +46399,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 1018309293}
     m_Modifications:
     - target: {fileID: -1589478476631903248, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
+      propertyPath: agentID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1589478476631903248, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: targetPosition
       value: 
       objectReference: {fileID: 1697092570}
+    - target: {fileID: -1589478476631903248, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
+      propertyPath: maxTeamDistance
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1930051504070189835, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -22
       objectReference: {fileID: 0}
     - target: {fileID: 1930051504070189835, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -46388,7 +46420,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1930051504070189835, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -22
       objectReference: {fileID: 0}
     - target: {fileID: 1930051504070189835, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -46421,6 +46453,10 @@ PrefabInstance:
     - target: {fileID: 4814920325528486872, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: m_Name
       value: ZombieRigTeam3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188856834540820647, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 22
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -78788,12 +78824,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 1018309293}
     m_Modifications:
     - target: {fileID: -1589478476631903248, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
+      propertyPath: agentID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1589478476631903248, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: targetPosition
       value: 
       objectReference: {fileID: 1697092570}
+    - target: {fileID: -1589478476631903248, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
+      propertyPath: maxTeamDistance
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1930051504070189835, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 1930051504070189835, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -78801,7 +78845,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1930051504070189835, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 1930051504070189835, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -78834,6 +78878,10 @@ PrefabInstance:
     - target: {fileID: 4814920325528486872, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
       propertyPath: m_Name
       value: ZombieRigTeam2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188856834540820647, guid: 65a87f6c3ce487d47a47443218c3e67a, type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 22
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

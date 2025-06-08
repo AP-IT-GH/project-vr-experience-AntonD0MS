@@ -34,4 +34,10 @@ public class TeamManager : MonoBehaviour
             agent.EndEpisode();
         }
     }
+
+    public List<SearchAgentTeam> GetAgents()
+    {
+        return agents;
+    }
+
 }

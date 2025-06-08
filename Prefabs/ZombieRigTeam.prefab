@@ -2180,7 +2180,10 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 10000
   targetPosition: {fileID: 0}
-  rb: {fileID: 3412378664032910865}
+  maxSearchDistance: 160
+  maxTeamDistance: 50
+  agentID: 0
+  zoneStrategy: 3
   speedMultiplier: 8
   rotationMultiplier: 5
 --- !u!114 &7188856834540820647
@@ -2196,7 +2199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 6
+    VectorObservationSize: 26
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 2
