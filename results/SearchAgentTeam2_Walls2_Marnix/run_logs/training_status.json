@@ -2,24 +2,6 @@
     "Player": {
         "checkpoints": [
             {
-                "steps": 6499996,
-                "file_path": "results\\SearchAgentTeam2_Walls2_Marnix\\Player\\Player-6499996.onnx",
-                "reward": 7.596861518919468,
-                "creation_time": 1749413260.7004993,
-                "auxillary_file_paths": [
-                    "results\\SearchAgentTeam2_Walls2_Marnix\\Player\\Player-6499996.pt"
-                ]
-            },
-            {
-                "steps": 6999985,
-                "file_path": "results\\SearchAgentTeam2_Walls2_Marnix\\Player\\Player-6999985.onnx",
-                "reward": 2.3073744007519315,
-                "creation_time": 1749414588.4495325,
-                "auxillary_file_paths": [
-                    "results\\SearchAgentTeam2_Walls2_Marnix\\Player\\Player-6999985.pt"
-                ]
-            },
-            {
                 "steps": 7499952,
                 "file_path": "results\\SearchAgentTeam2_Walls2_Marnix\\Player\\Player-7499952.onnx",
                 "reward": 8.03029856532812,
@@ -45,15 +27,33 @@
                 "auxillary_file_paths": [
                     "results\\SearchAgentTeam2_Walls2_Marnix\\Player\\Player-7627316.pt"
                 ]
+            },
+            {
+                "steps": 7999980,
+                "file_path": "results\\SearchAgentTeam2_Walls2_Marnix\\Player\\Player-7999980.onnx",
+                "reward": -3105.507148742676,
+                "creation_time": 1749423924.9347966,
+                "auxillary_file_paths": [
+                    "results\\SearchAgentTeam2_Walls2_Marnix\\Player\\Player-7999980.pt"
+                ]
+            },
+            {
+                "steps": 8440268,
+                "file_path": "results\\SearchAgentTeam2_Walls2_Marnix\\Player\\Player-8440268.onnx",
+                "reward": null,
+                "creation_time": 1749425199.1724339,
+                "auxillary_file_paths": [
+                    "results\\SearchAgentTeam2_Walls2_Marnix\\Player\\Player-8440268.pt"
+                ]
             }
         ],
         "final_checkpoint": {
-            "steps": 7627316,
+            "steps": 8440268,
             "file_path": "results\\SearchAgentTeam2_Walls2_Marnix\\Player.onnx",
-            "reward": 2.436453946866095,
-            "creation_time": 1749422024.2587354,
+            "reward": null,
+            "creation_time": 1749425199.1724339,
             "auxillary_file_paths": [
-                "results\\SearchAgentTeam2_Walls2_Marnix\\Player\\Player-7627316.pt"
+                "results\\SearchAgentTeam2_Walls2_Marnix\\Player\\Player-8440268.pt"
             ]
         }
     },

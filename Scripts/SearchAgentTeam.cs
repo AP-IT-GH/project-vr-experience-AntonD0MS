@@ -37,7 +37,7 @@ public class SearchAgentTeam : Agent
 
 
     private float episodeTimer = 0f;
-    public float maxTimeReward = 10f;
+    public float maxTimeReward = 1f;
     public float maxEpisodeTime = 20f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -85,14 +85,14 @@ public class SearchAgentTeam : Agent
         // sensor.AddObservation(toEnemy);
 
         // Target information (3 + 1 = 4 observations)
-        Vector3 toTarget = (targetPosition.position - transform.position);
+        Vector3 toTarget = targetPosition.position - transform.position;
         sensor.AddObservation(toTarget.normalized);
         sensor.AddObservation(toTarget.magnitude / maxSearchDistance);
 
         // Assigned search zone information (4 observations)
         if (hasAssignedZone)
         {
-            Vector3 toZone = (assignedSearchZone - transform.position);
+            Vector3 toZone = assignedSearchZone - transform.position;
             sensor.AddObservation(toZone.normalized);
             sensor.AddObservation(toZone.magnitude / maxSearchDistance);
         }
@@ -107,7 +107,7 @@ public class SearchAgentTeam : Agent
         {
             if (teammate != this)
             {
-                Vector3 toMate = (teammate.transform.position - transform.position);
+                Vector3 toMate = teammate.transform.position - transform.position;
                 sensor.AddObservation(toMate.normalized);
                 sensor.AddObservation(toMate.magnitude / maxTeamDistance);
             }
@@ -136,13 +136,13 @@ public class SearchAgentTeam : Agent
     {
         //Debug.Log("Acties ontvangen!");
 
-        AddReward(-0.0001f); // Kleine straf per stap, zo blijft de agent niet doelloos rondlopen
+        AddReward(-0.001f); // Kleine straf per stap, zo blijft de agent niet doelloos rondlopen
 
-        // float currentDistance = Vector3.Distance(transform.localPosition, targetPosition.position);
-        // float delta = previousDistance - currentDistance;
-        // //Debug.Log(delta);
-        // AddReward(delta * 1f);
-        // previousDistance = currentDistance;
+        float currentDistance = Vector3.Distance(transform.localPosition, targetPosition.position);
+        float delta = previousDistance - currentDistance;
+        //Debug.Log(delta);
+        AddReward(delta * 0.5f);
+        previousDistance = currentDistance;
 
         float distanceToTarget = Vector3.Distance(transform.position, targetPosition.position);
         float normalizedDistance = distanceToTarget / maxSearchDistance;

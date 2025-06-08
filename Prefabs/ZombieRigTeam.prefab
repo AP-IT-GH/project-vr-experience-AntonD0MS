@@ -2184,6 +2184,8 @@ MonoBehaviour:
   maxTeamDistance: 50
   agentID: 0
   zoneStrategy: 3
+  maxTimeReward: 1
+  maxEpisodeTime: 20
   speedMultiplier: 8
   rotationMultiplier: 5
 --- !u!114 &7188856834540820647
