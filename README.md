@@ -641,5 +641,10 @@ behaviors:
 
 ## Conclusie
 
+Dit project draaide volledig rond het teamwerk van AI. We hebben deze agents niet alleen goed in groep laten samenwerken, maar ook ervoor gezorgd dat ze je effectief kunnen terugvinden in een groot speelveld.
 
+Doordat we intensief hebben getraind, zijn onze resultaten uitstekend. Je ziet dat het in het begin nog erg moeilijk ging, onder andere omdat er veel factoren waren waarmee rekening moest worden gehouden. Alle rewards moesten fijn worden afgesteld om zo de beste uitkomst te verkrijgen.
 
+Dit blijft dus een van onze mogelijke verbeterpunten. Uiteraard gebeurt dit via trial and error, maar misschien zouden we de rewards nog iets scherper kunnen afstellen.
+
+Volgens onze ervaring verliep de training erg goed, ook al duurde die wel een stuk langer dan bij eerdere opdrachten. Dat kwam doordat we de training halverwege wat strenger en moeilijker hadden gemaakt. Dit verklaart ook de tijdelijke dip. Als we nu terugkijken naar de grafiek, zien we een mooie stijgende lijn, wat aantoont dat de extra moeilijkheid tijdens de training zeker heeft bijgedragen aan het eindresultaat.
