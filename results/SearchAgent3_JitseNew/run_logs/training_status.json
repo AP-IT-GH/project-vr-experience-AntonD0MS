@@ -2,22 +2,22 @@
     "Player": {
         "checkpoints": [
             {
-                "steps": 71911,
-                "file_path": "results\\SearchAgent3_JitseNew\\Player\\Player-71911.onnx",
-                "reward": -12.905024752020836,
-                "creation_time": 1748251285.0159893,
+                "steps": 19221,
+                "file_path": "results\\SearchAgent3_JitseNew\\Player\\Player-19221.onnx",
+                "reward": -1.1276500280946493,
+                "creation_time": 1748251765.4629495,
                 "auxillary_file_paths": [
-                    "results\\SearchAgent3_JitseNew\\Player\\Player-71911.pt"
+                    "results\\SearchAgent3_JitseNew\\Player\\Player-19221.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 71911,
+            "steps": 19221,
             "file_path": "results\\SearchAgent3_JitseNew\\Player.onnx",
-            "reward": -12.905024752020836,
-            "creation_time": 1748251285.0159893,
+            "reward": -1.1276500280946493,
+            "creation_time": 1748251765.4629495,
             "auxillary_file_paths": [
-                "results\\SearchAgent3_JitseNew\\Player\\Player-71911.pt"
+                "results\\SearchAgent3_JitseNew\\Player\\Player-19221.pt"
             ]
         }
     },

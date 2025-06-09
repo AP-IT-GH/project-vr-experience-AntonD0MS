@@ -10,21 +10,17 @@ using UnityEngine.AI;
 
 public class SearchAgentTeam : Agent
 {
-
-    /*[SerializeField]
-    private float moveSpeed = 5f;*/
-
     [SerializeField]
     private Transform targetPosition;
 
-    private Rigidbody rb;
+    [SerializeField]
+    private float maxSearchDistance = 160f;
 
-    [SerializeField] private float maxSearchDistance = 160f;  // Diagonal of your search area
-    [SerializeField] private float maxTeamDistance = 100f;
+    [SerializeField] 
+    private float maxTeamDistance = 100f;
 
-    [SerializeField] private int agentID;
-    private Vector3 assignedSearchZone;
-    private bool hasAssignedZone = false;
+    [SerializeField]
+    private int agentID;
 
     [SerializeField] private ZoneStrategy zoneStrategy = ZoneStrategy.AdaptiveQuadrants;
     public enum ZoneStrategy
@@ -35,12 +31,23 @@ public class SearchAgentTeam : Agent
         AdaptiveQuadrants
     }
 
-
     private float episodeTimer = 0f;
+    private Vector3 assignedSearchZone;
+    private bool hasAssignedZone = false;
+    private Rigidbody rb;
+    private float previousPathDistance;
+    
     public float maxTimeReward = 1f;
     public float maxEpisodeTime = 20f;
+    public float speedMultiplier = 8f; // 0.5f
+    public float rotationMultiplier = 5f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    /*[SerializeField]
+    private float moveSpeed = 5f;*/
+    // private float previousDistance;
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -50,13 +57,8 @@ public class SearchAgentTeam : Agent
 
     }
 
-    // Update is called once per frame
     void Update()
     {
-        /*  if(transform.localPosition.y < -1){
-              EndEpisode();
-          }*/
-
         if (hasAssignedZone && assignedSearchZone != Vector3.zero)
         {
             // Teken lijn naar zone
@@ -70,6 +72,10 @@ public class SearchAgentTeam : Agent
             // Teken cirkel rond de zone
             DrawCircle(zonePos, 5f, Color.green);
         }
+        /*  if(transform.localPosition.y < -1){
+              EndEpisode();
+        }*/
+
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -78,19 +84,12 @@ public class SearchAgentTeam : Agent
         sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(rb.linearVelocity);
 
-        // sensor.AddObservation(transform.forward);
-
-        // sensor.AddObservation(targetPosition.localPosition);
-
-        // Vector3 toEnemy = (targetPosition.position - transform.position).normalized;
-        // sensor.AddObservation(toEnemy);
-
         // Target information (3 + 1 = 4 observations)
         Vector3 toTarget = targetPosition.position - transform.position;
         sensor.AddObservation(toTarget.normalized);
         sensor.AddObservation(toTarget.magnitude / maxSearchDistance);
 
-        // Assigned search zone information (4 observations)
+        // Assigned search zone informatie (4 observations)
         if (hasAssignedZone)
         {
             Vector3 toZone = assignedSearchZone - transform.position;
@@ -113,8 +112,13 @@ public class SearchAgentTeam : Agent
                 sensor.AddObservation(toMate.magnitude / maxTeamDistance);
             }
         }
+        
+        
+        // sensor.AddObservation(transform.forward);
+        // sensor.AddObservation(targetPosition.localPosition);
+        // Vector3 toEnemy = (targetPosition.position - transform.position).normalized;
+        // sensor.AddObservation(toEnemy);
 
-        // Search area coverage (add grid-based exploration tracking)
         //sensor.AddObservation(GetExplorationGrid());
 
 
@@ -130,36 +134,16 @@ public class SearchAgentTeam : Agent
 
     }
 
-    public float speedMultiplier = 8f; // 0.5f
-    public float rotationMultiplier = 5f;
-
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
-        //Debug.Log("Acties ontvangen!");
-
         AddReward(-0.001f); // Kleine straf per stap, zo blijft de agent niet doelloos rondlopen
 
-        // float currentDistance = Vector3.Distance(transform.localPosition, targetPosition.position);
-        // float delta = previousDistance - currentDistance;
-        // //Debug.Log(delta);
-        // AddReward(delta * 0.5f);
-        // previousDistance = currentDistance;
 
         float pathDistanceToTarget = GetPathDistanceToTarget();
         float deltaPath = previousPathDistance - pathDistanceToTarget;
         AddReward(deltaPath * 0.1f);
         previousPathDistance = pathDistanceToTarget;
 
-        // float distanceToTarget = Vector3.Distance(transform.position, targetPosition.position);
-        // float normalizedDistance = distanceToTarget / maxSearchDistance;
-        // AddReward(-normalizedDistance * 0.001f);
-
-        // if (previousDistance > 0)
-        // {
-        //     float deltaDistance = previousDistance - distanceToTarget;
-        //     AddReward(deltaDistance * 0.01f);
-        // }
-        // previousDistance = distanceToTarget;
 
         if (hasAssignedZone)
         {
@@ -192,11 +176,8 @@ public class SearchAgentTeam : Agent
 
         Vector3 controlSignal = Vector3.zero;
         controlSignal.z = actionBuffers.ContinuousActions[0];
-        // transform.Translate(controlSignal * speedMultiplier);
-        // transform.Rotate(0.0f, rotationMultiplier* actionBuffers.ContinuousActions[1], 0.0f);
         Vector3 movement = transform.forward * controlSignal.z * speedMultiplier;
         rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
-        //rb.AddForce(movement, ForceMode.VelocityChange);
 
         float rotation = rotationMultiplier * actionBuffers.ContinuousActions[1];
         Quaternion turn = Quaternion.Euler(0.0f, rotation, 0.0f);
@@ -205,6 +186,43 @@ public class SearchAgentTeam : Agent
         RewardObstacleNavigation();
 
         episodeTimer += Time.fixedDeltaTime;
+
+
+
+
+        if (transform.localPosition.y < -2)
+        {
+            TeamManager.Instance.GiveTeamReward(-1f);
+            TeamManager.Instance.EndTeamEpisode();
+        }
+
+        // if (StepCount >= MaxStep && MaxStep > 0)
+        // {
+        //     SetReward(-2f);
+        //     EndEpisode();
+        // }
+        
+        // transform.Translate(controlSignal * speedMultiplier);
+        // transform.Rotate(0.0f, rotationMultiplier* actionBuffers.ContinuousActions[1], 0.0f);
+
+        // float distanceToTarget = Vector3.Distance(transform.position, targetPosition.position);
+        // float normalizedDistance = distanceToTarget / maxSearchDistance;
+        // AddReward(-normalizedDistance * 0.001f);
+
+        // if (previousDistance > 0)
+        // {
+        //     float deltaDistance = previousDistance - distanceToTarget;
+        //     AddReward(deltaDistance * 0.01f);
+        // }
+        // previousDistance = distanceToTarget;
+        
+        //rb.AddForce(movement, ForceMode.VelocityChange);
+
+        // float currentDistance = Vector3.Distance(transform.localPosition, targetPosition.position);
+        // float delta = previousDistance - currentDistance;
+        // //Debug.Log(delta);
+        // AddReward(delta * 0.5f);
+        // previousDistance = currentDistance;
 
         // float distanceToTarget = Vector3.Distance(transform.localPosition, targetPosition.localPosition);
 
@@ -222,18 +240,6 @@ public class SearchAgentTeam : Agent
         //     AddReward(-0.001f); // niet bewegen = strafje
         // }
 
-
-
-        if (transform.localPosition.y < -2)
-        {
-            TeamManager.Instance.GiveTeamReward(-1f);
-            TeamManager.Instance.EndTeamEpisode();
-        }
-        // if (StepCount >= MaxStep && MaxStep > 0)
-        // {
-        //     SetReward(-2f);
-        //     EndEpisode();
-        // }
     }
 
     private void RewardExplorationPattern()
@@ -247,18 +253,20 @@ public class SearchAgentTeam : Agent
             {
                 float distance = Vector3.Distance(transform.position, teammate.transform.position);
 
-                // Beloon voor goede afstand houden
-                // if (distance >= 20f && distance <= 50f)
-                // {
-                //     AddReward(0.002f);
-                // }
-                // Straf voor te dicht bij elkaar
                 if (distance < 15f)
                 {
                     AddReward(-0.005f);
                 }
             }
         }
+
+        // Beloon voor goede afstand houden
+        // if (distance >= 20f && distance <= 50f)
+        // {
+        //     AddReward(0.002f);
+        // }
+        // Straf voor te dicht bij elkaar
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -280,28 +288,27 @@ public class SearchAgentTeam : Agent
             TeamManager.Instance.GiveTeamReward(2f);
             TeamManager.Instance.EndTeamEpisode();
 
-            //collision.gameObject.GetComponent<MovingTarget>()?.OnFound();
         }
         else if (collision.gameObject.CompareTag("Wall"))
         {
             AddReward(-0.05f);
         }
+
+        //collision.gameObject.GetComponent<MovingTarget>()?.OnFound();
     }
 
-    // private float previousDistance;
-    private float previousPathDistance;
     public override void OnEpisodeBegin()
     {
-        //Debug.Log("Episode gestart!");
-
         episodeTimer = 0f;
 
         TeamManager.Instance.RegisterAgent(this);
         AssignSearchZone();
 
         InitializeEnvironment();
-        // previousDistance = Vector3.Distance(transform.localPosition, targetPosition.position);
         previousPathDistance = GetPathDistanceToTarget();
+        
+        // previousDistance = Vector3.Distance(transform.localPosition, targetPosition.position);
+
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -313,28 +320,14 @@ public class SearchAgentTeam : Agent
         continuousActionsOut[1] = Input.GetAxis("Horizontal");
     }
 
-
-
-
     private void InitializeEnvironment()
     {
-        /*float randomX = Random.Range(-4.5f, 4.5f);
-        float randomZ = Random.Range(-4.5f, 4.5f);
-        targetPosition.localPosition = new Vector3(randomX, 0.5f, randomZ);*/
         targetPosition.gameObject.SetActive(true);
 
         if (transform.localPosition.y < -2)
         {
-            // transform.localPosition = new Vector3(0, 1, 3);
-            // transform.localRotation = Quaternion.identity;
-
             SetSpawnPosition();
         }
-
-        // verplaats de target naar een nieuwe willekeurige locatie 
-        // targetPosition.localPosition = new Vector3(Random.value * 8 - 4,1.5f,Random.value * 8 - 4);
-        // targetPosition.position = new Vector3(Random.Range(-12f, 12f), 1.5f, Random.Range(-12f, 12f));
-        // targetPosition.position = new Vector3(Random.Range(-24f, 24f), 1.5f, Random.Range(-24f, 24f));
 
 
         Vector3 randomNavMeshPos;
@@ -351,7 +344,6 @@ public class SearchAgentTeam : Agent
             NavMeshHit hit;
             int walkableMask = NavMesh.GetAreaFromName("Walkable");
             if (NavMesh.SamplePosition(randomPoint, out hit, 1.5f, 1 << walkableMask))
-            //if (NavMesh.SamplePosition(randomPoint, out hit, 1.5f, NavMesh.AllAreas))
             {
                 randomNavMeshPos = hit.position;
                 targetPosition.position = randomNavMeshPos + Vector3.up * 1.5f; // optillen zodat hij niet in de grond zit
@@ -366,6 +358,19 @@ public class SearchAgentTeam : Agent
             targetPosition.position = new Vector3(0f, 1.5f, 0f);
         }
 
+        /*float randomX = Random.Range(-4.5f, 4.5f);
+        float randomZ = Random.Range(-4.5f, 4.5f);
+        targetPosition.localPosition = new Vector3(randomX, 0.5f, randomZ);*/
+
+        // transform.localPosition = new Vector3(0, 1, 3);
+        // transform.localRotation = Quaternion.identity;
+        
+        // verplaats de target naar een nieuwe willekeurige locatie 
+        // targetPosition.localPosition = new Vector3(Random.value * 8 - 4,1.5f,Random.value * 8 - 4);
+        // targetPosition.position = new Vector3(Random.Range(-12f, 12f), 1.5f, Random.Range(-12f, 12f));
+        // targetPosition.position = new Vector3(Random.Range(-24f, 24f), 1.5f, Random.Range(-24f, 24f));
+
+        //if (NavMesh.SamplePosition(randomPoint, out hit, 1.5f, NavMesh.AllAreas))
     }
 
     private void SetSpawnPosition()
@@ -448,7 +453,7 @@ public class SearchAgentTeam : Agent
             return;
         }
 
-        // VERBETERDE zone toewijzing - meer gespreid over de kaart
+        // VERBETERDE zone toewijzing, meer gespreid over de kaart
         switch (myIndex)
         {
             case 0:
@@ -562,6 +567,4 @@ public class SearchAgentTeam : Agent
     //     // fallback
     //     return new Vector3(0f, rangeY, 0f);
     // }
-
-    
 }
