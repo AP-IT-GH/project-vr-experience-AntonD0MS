@@ -631,6 +631,6 @@ behaviors:
     threaded: true
 ```
 
-## Tensorboard rsultaten
+## Tensorboard resultaten
 
 ![Tensorboard](./images/tensor.png)
