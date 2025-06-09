@@ -74,7 +74,7 @@ Dit script word gebruikt op elke agent en zorgt voor de effectieve functionalite
 
 ### Start 
 
-Deze functie zorgt voor het coinfigureren van het Rigidbody van de agent, hierbij word er ook voor gezorgd dat het niet door objecten gaat en we gebruiken hierbij ook een andere vorm van collison detection voor (door ons ondervonden) betere prestaties.
+Deze functie zorgt voor het configureren van het Rigidbody van de agent, hierbij word er ook voor gezorgd dat het niet door objecten gaat en we gebruiken hierbij ook een andere vorm van collison detection voor (door ons ondervonden) betere prestaties.
 
 ```csharp
 
@@ -589,3 +589,48 @@ private float GetPathDistanceToTarget()
     return maxSearchDistance; // Grote waarde als er geen pad is
 }
 ```
+
+## Training config
+
+Onze training config is gebaseerd op de standaar config, de grootste aanpassingen en beslissing zijn:
+
+- PPO algoritme 
+- Geen training buffer 
+- Training gebaseed op curiositeit
+- Veel max steps
+
+```csharp
+behaviors:
+  Player:
+    trainer_type: ppo
+    hyperparameters:
+      batch_size: 1024
+      buffer_size: 10240
+      learning_rate: 1.0e-4
+      beta: 1.0e-3
+      epsilon: 0.2
+      lambd: 0.95
+      num_epoch: 4
+      learning_rate_schedule: linear
+      beta_schedule: constant
+      epsilon_schedule: linear
+    network_settings:
+      normalize: true
+      hidden_units: 256
+      num_layers: 3
+    reward_signals:
+      extrinsic:
+        gamma: 0.995
+        strength: 1.0
+      curiosity:
+        gamma: 0.99
+        strength: 0.01
+    max_steps: 15000000
+    time_horizon: 128
+    summary_freq: 10000
+    threaded: true
+```
+
+## Tensorboard rsultaten
+
+![Tensorboard](./images/tensor.png)
