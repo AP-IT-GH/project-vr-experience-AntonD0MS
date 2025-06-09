@@ -2,6 +2,10 @@
 
 Ons project draait allemaal rond het teamwerk van AI's en het vinden van een target in een veld omringd door muren. We werken hier niet met normale principes, onze opdracht bestudeert ook het teamwerk van deze modellen en hiermee hebben we ondervonden dat dit zeer goed werkt.
 
+## Samenvatting
+
+Hierin wordt uitgelegd hoe we dit project hebben opgebouwd en welke methoden we hebben gebruikt om tot dit resultaat te komen. Men kan hiermee bijleren over ml agents en hoe deze in team kunnen werken om efficiënter te leren.
+
 ## TeamManager
 
 Onze TeamManager zorgt voor eenvoudig beheer van onze teams, hierbij worden alle agents in een lijst geplaatst en kunnen we gezamelijk hierop acties uitvoeren.
@@ -634,3 +638,8 @@ behaviors:
 ## Tensorboard resultaten
 
 ![Tensorboard](./images/tensor.png)
+
+## Conclusie
+
+
+
